@@ -14,7 +14,7 @@ public class LoginService {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public boolean isValidUser(String username, String password){
-        String sql = "SELECT COUNT(*) FROM test2 WHERE username = : username AND password = :password";
+        String sql = "SELECT COUNT(*) FROM test2 WHERE username = :username AND password = :password";
         Map<String ,Object> paramMap = new HashMap<>();
         paramMap.put("username",username);
         paramMap.put("password",password);
