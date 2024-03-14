@@ -1,14 +1,18 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Dao.register;
-import com.example.demo.User;
+import com.example.demo.Dao.RegisterDao;
+import com.example.demo.Service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
-public class MemberController extends register {
+public class MemberController {
+    @Autowired
+    private RegisterDao registerDao;
 
     @PostMapping("/register")
-    public String create(@RequestBody User user) {
-        insert(user);
+    public String create(@RequestBody MemberService memberService) {
+        registerDao.insert(memberService);
         return "已註冊";
     }
 
@@ -18,7 +22,7 @@ public class MemberController extends register {
     }
     @PutMapping("/register/{account}")
     public String update(@PathVariable String account,
-                         @RequestBody User user) {
+                         @RequestBody MemberService user) {
         return "執行資料庫的 Update 操作";
     }
     @DeleteMapping("/register/{account}")
