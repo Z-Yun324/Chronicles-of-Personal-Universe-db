@@ -1,7 +1,7 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Dao.Login;
-import com.example.demo.Service.LoginService;
+import com.example.demo.Dao.LoginDao;
+import com.example.demo.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @Autowired
-    private LoginService loginService;
+    private LoginDao loginService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Login login){
-        if(loginService.isValidUser(login.getUsername(),login.getPassword())){
+    public ResponseEntity<String> login(@RequestBody MemberService memberService){
+        if(loginService.isValidUser(memberService.getAccount(),memberService.getPassword())){
             return ResponseEntity.ok("登入成功");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");

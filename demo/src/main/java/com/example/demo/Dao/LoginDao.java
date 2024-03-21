@@ -1,4 +1,4 @@
-package com.example.demo.Service;
+package com.example.demo.Dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LoginService {
+public class LoginDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public boolean isValidUser(String username, String password){
-        String sql = "SELECT COUNT(*) FROM test2 WHERE username = :username AND password = :password";
+    public boolean isValidUser(String account, String password){
+        String sql = "SELECT COUNT(*) FROM test WHERE account = :account AND password = :password";
         Map<String ,Object> paramMap = new HashMap<>();
-        paramMap.put("username",username);
+        paramMap.put("account",account);
         paramMap.put("password",password);
 
         int count = namedParameterJdbcTemplate.queryForObject(sql,paramMap,Integer.class);
