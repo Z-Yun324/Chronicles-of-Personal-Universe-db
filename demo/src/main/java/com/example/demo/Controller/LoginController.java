@@ -16,7 +16,7 @@ public class LoginController {
     private LoginDao loginService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberService memberService){
+    public ResponseEntity<String> login(@RequestBody MemberService memberService) throws Exception {
         if(loginService.isValidUser(memberService.getAccount(),memberService.getPassword())){
             return ResponseEntity.ok("登入成功");
         } else {

@@ -1,7 +1,9 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Dao.RegisterDao;
+import com.example.demo.Service.EncrypAES;
 import com.example.demo.Service.MemberService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,12 @@ public class MemberController {
     private RegisterDao registerDao;
 
     @PostMapping("/register")
-    public String create(@RequestBody MemberService memberService) {
+    public String create(@RequestBody MemberService memberService)throws Exception  {
+        byte[] keyBytes = "0123456789abcdef".getBytes(); // 16字節的密鑰
+        EncrypAES de1 = new EncrypAES(keyBytes);
+        String msg = memberService.getPassword();
+        byte[] encontent = de1.Encrytor(msg);
+        memberService.setPassword(Base64.encodeBase64String(encontent));
         registerDao.insert(memberService);
         return "已註冊";
     }
