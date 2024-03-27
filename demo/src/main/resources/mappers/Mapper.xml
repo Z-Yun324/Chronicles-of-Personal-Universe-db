@@ -4,22 +4,29 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.Mapper">
 
+    <!--查詢所有用戶-->
     <select id="getAllUser" resultType="com.example.demo.pojo.UserAccount">
         SELECT * FROM user_account
     </select>
 
+    <!--
+    根據用戶名和密碼從數據庫中獲取用戶信息。
+    參數：name - 用戶名，password - 密碼
+    返回：用戶帳戶對象
+    -->
     <select id="getUserByNameAndPassword" resultType="com.example.demo.pojo.UserAccount">
         SELECT user_name, user_password FROM user_account WHERE user_name = #{name} AND user_password = #{password}
     </select>
 
-
+    <!--
+        向數據庫中插入新用戶信息。
+        參數：name - 用戶名，password - 密碼
+        返回：插入操作受影響的行數
+    -->
     <insert id="insertUser" parameterType="com.example.demo.pojo.UserAccount">
         INSERT INTO user_account (user_name, user_password, user_nickname, email, salt)
         VALUES (#{name}, #{password}, '', '', '')
     </insert>
 
 
-    <select id="checkUserNameExists" resultType="int">
-        SELECT user_name FROM user_account WHERE user_name = #{name}
-    </select>
 </mapper>

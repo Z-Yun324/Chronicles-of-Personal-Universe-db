@@ -3,13 +3,25 @@ package com.example.demo.Controller;
 import com.example.demo.Dao.RegisterDao;
 import com.example.demo.Service.EncrypAES;
 import com.example.demo.Service.MemberService;
+import com.example.demo.pojo.UserAccount;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MemberController {
+
     @Autowired
+    private MemberService memberService;
+
+    @PostMapping("/register")
+    public String register(@RequestParam("username") String name, @RequestParam("password") String password) {
+        memberService.insertUser(name, password);
+            return "註冊成功";
+    }
+
+
+    /*@Autowired
     private RegisterDao registerDao;
 
     @PostMapping("/register")
@@ -35,5 +47,5 @@ public class MemberController {
     @DeleteMapping("/register/{account}")
     public String delete(@PathVariable String account) {
         return "執行資料庫的 Delete 操作";
-    }
+    }*/
 }

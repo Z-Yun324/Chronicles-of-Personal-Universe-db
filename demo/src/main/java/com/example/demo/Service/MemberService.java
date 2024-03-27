@@ -28,13 +28,11 @@ public class MemberService {
     @Autowired
     private Mapper mapper;
 
-    public UserAccount insertUser(String name, String password) {
-        return mapper.insertUser(name, password);
-    }
-
-    private boolean isUserNameExists(String name){
-        int count = mapper.checkUserNameExists(name);
-        return count > 0;
+    public boolean insertUser(String username, String password) {
+        // 調用 Mapper 接口中的 insertUser 方法向數據庫中插入新用戶
+        int rowsAffected = mapper.insertUser(username, password);
+        // 返回插入操作是否成功
+        return rowsAffected > 0;
     }
 
 }
