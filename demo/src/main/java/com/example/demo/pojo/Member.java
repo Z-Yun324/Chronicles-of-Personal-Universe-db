@@ -1,6 +1,6 @@
-package com.example.demo.Service;
+package com.example.demo.pojo;
 
-public class MemberService {
+public class Member {
     String account;
     String password;
     public String getAccount() {

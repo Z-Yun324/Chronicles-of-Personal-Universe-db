@@ -1,6 +1,6 @@
 package com.example.demo.Dao;
 
-import com.example.demo.Service.MemberService;
+import com.example.demo.pojo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,7 +14,7 @@ public class RegisterDaoImpl implements RegisterDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public String insert(MemberService user) {
+    public String insert(Member user) {
         String sql = "INSERT INTO test(account, password) VALUES (:account, :password)";
         Map<String, Object> map = new HashMap<>();
         map.put("account", user.getAccount());
