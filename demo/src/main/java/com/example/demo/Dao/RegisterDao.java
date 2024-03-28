@@ -1,7 +1,7 @@
 package com.example.demo.Dao;
 
-import com.example.demo.pojo.Member;
+import com.example.demo.Service.MemberService;
 
 public interface RegisterDao {
-    String insert(Member user);
+    String insert(MemberService user);
 }

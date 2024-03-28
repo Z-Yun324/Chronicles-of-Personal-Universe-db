@@ -1,29 +1,35 @@
 package com.example.demo.Controller;
-import com.example.demo.Dao.LoginDao;
-import com.example.demo.Dao.RegisterDao;
-import com.example.demo.utils.EncrypAES;
-import com.example.demo.pojo.Member;
-import org.apache.tomcat.util.codec.binary.Base64;
+
+import com.example.demo.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MemberController {
+
     @Autowired
-    private RegisterDao registerDao;
-    @Autowired
-    private LoginDao loginDao;
+    private MemberService memberService;
 
     @PostMapping("/register")
-    public String create(@RequestBody Member member)throws Exception  {
+    public String register(@RequestParam("username") String name, @RequestParam("password") String password) {
+        memberService.insertUser(name, password);
+            return "註冊成功";
+    }
+
+
+    /*@Autowired
+    private RegisterDao registerDao;
+
+    @PostMapping("/register")
+    public String create(@RequestBody MemberService memberService)throws Exception  {
         byte[] keyBytes = "0123456789abcdef".getBytes(); // 16字節的密鑰
         EncrypAES de1 = new EncrypAES(keyBytes);
-        String msg = member.getPassword();
+        String msg = memberService.getPassword();
         byte[] encontent = de1.Encrytor(msg);
-        member.setPassword(Base64.encodeBase64String(encontent));
-        registerDao.insert(member);
+        memberService.setPassword(Base64.encodeBase64String(encontent));
+        registerDao.insert(memberService);
         return "已註冊";
     }
 
@@ -33,21 +39,11 @@ public class MemberController {
     }
     @PutMapping("/register/{account}")
     public String update(@PathVariable String account,
-                         @RequestBody Member user) {
+                         @RequestBody MemberService user) {
         return "執行資料庫的 Update 操作";
     }
     @DeleteMapping("/register/{account}")
     public String delete(@PathVariable String account) {
         return "執行資料庫的 Delete 操作";
-    }
-
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Member member) throws Exception {
-        if(loginDao.isValidUser(member.getAccount(), member.getPassword())){
-            return ResponseEntity.ok("登入成功");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
-        }
-    }
+    }*/
 }

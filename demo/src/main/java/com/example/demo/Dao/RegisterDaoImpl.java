@@ -1,14 +1,6 @@
 package com.example.demo.Dao;
 
-import com.example.demo.pojo.Member;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import java.util.HashMap;
-import java.util.Map;
-
-@Repository
+/*@Repository
 public class RegisterDaoImpl implements RegisterDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -22,4 +14,4 @@ public class RegisterDaoImpl implements RegisterDao {
         namedParameterJdbcTemplate.update(sql, map);
         return "已註冊";
     }
-}
+}*/
