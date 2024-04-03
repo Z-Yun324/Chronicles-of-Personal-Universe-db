@@ -53,6 +53,7 @@ public class EncrypAES {
        cipherByte = c.doFinal(buff);
        return cipherByte;
    }
+}
 /*
     public static void main(String[] args) throws Exception {
         //定義key
@@ -65,4 +66,3 @@ public class EncrypAES {
         System.out.println("加密後:" + Base64.encodeBase64String(encontent));
         System.out.println("解密後:" + new String(decontent));
     }*/
-}

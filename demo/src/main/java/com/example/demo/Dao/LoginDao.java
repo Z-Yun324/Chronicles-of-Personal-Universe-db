@@ -1,5 +1,5 @@
 package com.example.demo.Dao;
-
+/*
 import com.example.demo.utils.EncrypAES;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class LoginDao {
 
         int count = namedParameterJdbcTemplate.queryForObject(sql,paramMap,Integer.class);
 
-        return count == 1;start_time
-    }*/
+        return count == 1;
+    }
     public boolean isValidUser(String account, String password)throws Exception{
         String sql = "SELECT password FROM test WHERE account = :account LIMIT 1";
         Map<String ,Object> paramMap = new HashMap<>();
@@ -36,4 +36,4 @@ public class LoginDao {
         String decryptedPassword = new String(decontent);
         return password.equals(decryptedPassword);
     }
-}
+}*/

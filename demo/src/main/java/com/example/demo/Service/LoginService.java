@@ -1,5 +1,5 @@
 package com.example.demo.Service;
-
+/*
 import com.example.demo.mapper.Mapper;
 import com.example.demo.pojo.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,4 +15,4 @@ public class LoginService {
     public UserAccount getUserByNameAndPassword(String username, String password) {
         return mapper.getUserByNameAndPassword(username, password);
     }
-}
+}*/

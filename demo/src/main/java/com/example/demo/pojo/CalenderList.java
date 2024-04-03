@@ -1,23 +1,5 @@
 package com.example.demo.pojo;
-
-<<<<<<< HEAD
-import lombok.Data;
-
-import java.sql.Time;
-import java.sql.Timestamp;
-
-@Data
-public class CalenderList {
-    private int c_id;
-    private String c_color;
-    private int user_id;
-    private String event_date;
-    private Time start_time;
-    private Time end_time;
-    private String things_description;
-    private Timestamp reminder_time;
-    private String remark;
-=======
+/*
 import java.util.Date;
 
 public class CalenderList {
@@ -116,7 +98,5 @@ public class CalenderList {
         this.remark = remark;
     }
 
-
-
->>>>>>> 7f71cfd7b13faf19f6c3e07c3cb04d9d34118488
 }
+*/
