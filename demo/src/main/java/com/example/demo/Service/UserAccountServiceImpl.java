@@ -1,6 +1,6 @@
 package com.example.demo.Service;
 
-import com.example.demo.mapper.Mapper;
+import com.example.demo.mapper.UserAccountMapper;
 import com.example.demo.pojo.UserAccount;
 import com.example.demo.utils.EncrypAES;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -13,9 +13,9 @@ import java.util.Map;
 @Service
 public class UserAccountServiceImpl implements UserAccoutService{
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private Mapper mapper;
+    private UserAccountMapper mapper;
 
-    public UserAccountServiceImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate, Mapper mapper) {
+    public UserAccountServiceImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate, UserAccountMapper mapper) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         this.mapper = mapper;
     }

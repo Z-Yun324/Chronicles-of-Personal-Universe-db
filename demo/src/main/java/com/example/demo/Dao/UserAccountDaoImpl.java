@@ -1,5 +1,5 @@
 package com.example.demo.Dao;
-
+/*
 import com.example.demo.pojo.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -55,3 +55,4 @@ public class UserAccountDaoImpl implements UserAccountDao{
         return jdbcNameTemplate.update(sql, paramSource);
     }
 }
+*/
