@@ -7,6 +7,7 @@ public interface UserAccountMapper {
 
     UserAccount getUserByNameAndPassword(String username, String password);
     int insertUser(String username,String password);
+    UserAccount getUserById(String id);
 }
 
 
