@@ -6,11 +6,17 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Mapper
 public interface CalenderMapper {
 
     int insertCalender(CalenderList calenderList);
 
-    int deleteCalenderById(int id);
+    void deleteCalenderById(int id);
+
+    List<CalenderList>getCalendersByUserId(int userid);
+
+    int updateCalenderById(CalenderList calenderList);
+
 }
