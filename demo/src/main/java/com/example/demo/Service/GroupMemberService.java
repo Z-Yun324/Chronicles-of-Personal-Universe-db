@@ -22,9 +22,11 @@ public class GroupMemberService {
     public List<GroupMembers>getGroupByUserId(int userid){
         return groupMemberMapper.getGroupByUserId(userid);
     }
+
     public void deleteGroupById(int g_id){
         groupMemberMapper.deleteGroupById(g_id);
     }
+
     public boolean updateGroupById(GroupMembers groupMembers){
         int rowsAffected = groupMemberMapper.updateGroupById(groupMembers);
         return rowsAffected > 0;
