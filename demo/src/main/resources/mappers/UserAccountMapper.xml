@@ -9,6 +9,11 @@
         SELECT * FROM user_account
     </select>
 
+    <!--根據用戶id獲取用戶訊息-->
+    <select id="getUserById" resultType="com.example.demo.pojo.UserAccount">
+        SELECT user_id FROM user_account WHERE user_id = #{id}
+    </select>
+
     <!--
     根據用戶名和密碼從數據庫中獲取用戶信息。
     參數：name - 用戶名，password - 密碼
@@ -20,12 +25,12 @@
 
     <!--
         向數據庫中插入新用戶信息。
-        參數：username - 用戶名，password - 密碼
+        參數：name - 用戶名，password - 密碼
         返回：插入操作受影響的行數
     -->
     <insert id="insertUser" parameterType="com.example.demo.pojo.UserAccount">
         INSERT INTO user_account (user_name, user_password, user_nickname, email, salt)
-        VALUES (#{username}, #{password}, '', '', '')
+        VALUES (#{name}, #{password}, '', '', '')
     </insert>
 
 
