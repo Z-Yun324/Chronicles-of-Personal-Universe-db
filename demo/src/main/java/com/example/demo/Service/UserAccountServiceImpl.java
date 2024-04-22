@@ -21,7 +21,7 @@ public class UserAccountServiceImpl implements UserAccoutService{
     }
 
     public boolean isValidUser(String account, String password)throws Exception{
-        String sql = "SELECT password FROM test WHERE account = :account LIMIT 1";
+        String sql = "SELECT user_password FROM user_account WHERE user_name = :account LIMIT 1";
         Map<String ,Object> paramMap = new HashMap<>();
         paramMap.put("account",account);
         String encryptedPassword = namedParameterJdbcTemplate.queryForObject(sql,paramMap,String.class);
