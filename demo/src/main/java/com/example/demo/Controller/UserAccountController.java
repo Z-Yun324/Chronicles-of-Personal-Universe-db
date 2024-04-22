@@ -1,30 +1,46 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Service.UserAccountServiceImpl;
-import com.example.demo.pojo.UserAccount;
 import com.example.demo.utils.EncrypAES;
+import com.example.demo.utils.JWTutils;
+import io.jsonwebtoken.Claims;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserAccountController {
     private UserAccountServiceImpl userAccountServiceImpl;
-    private UserAccount userAccount;
-    public UserAccountController(UserAccountServiceImpl userAccountServiceImpl) {
+    private JWTutils jwTutils;
+    public UserAccountController(UserAccountServiceImpl userAccountServiceImpl, JWTutils jwTutils) {
         this.userAccountServiceImpl = userAccountServiceImpl;
-        this.userAccount = new UserAccount();
+        this.jwTutils = jwTutils;
     }
+
 
     //-----------------------------------------------------------------------
     @PostMapping("/login")
-    public String login(@RequestParam("username") String name, @RequestParam("password") String password) throws Exception {
+    public ResponseEntity<String> login(@RequestParam("username") String name, @RequestParam("password") String password) throws Exception {
         if (userAccountServiceImpl.isValidUser(name, password)) {
-            return "登入成功";
+            String token = JWTutils.creatJWT(name, null);
+            System.out.println("生成token=:" + token);
+            return ResponseEntity.ok(token);
         } else {
-            return "登入失敗";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户名或密码错误");
         }
+    }
+    @GetMapping("/secure-data")
+    public ResponseEntity<String> getSecureData(@RequestHeader("Authorization") String authorizationHeader) throws Exception{
+        // 解析 JWT
+        String jwt = authorizationHeader.replace("Bearer ", "");
+        Claims claims = JWTutils.parseJWT(jwt);
+
+        // 从 JWT 中获取用户名
+        String username = claims.getSubject();
+
+        // 这里可以根据用户名获取用户数据并返回给客户端
+        return ResponseEntity.ok("Hello, " + username + "! This is secure data.");
     }
 
         //-----------------------------------------------------------------------
