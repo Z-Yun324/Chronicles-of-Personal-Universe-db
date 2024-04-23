@@ -45,11 +45,11 @@ public class UserAccountController {
 
         //-----------------------------------------------------------------------
         @PostMapping("/register")
-        public String register(@RequestParam("username") String username, @RequestParam("password") String password)throws Exception {
+        public String register(@RequestParam("username") String username, @RequestParam("password") String password,@RequestParam("nickname") String nickname,@RequestParam("email") String email)throws Exception {
             byte[] keyBytes = "0123456789abcdef".getBytes(); // 16字節的密鑰
             EncrypAES de1 = new EncrypAES(keyBytes);
             byte[] encontent = de1.Encrytor(password);
-            userAccountServiceImpl.insertUser(username,Base64.encodeBase64String(encontent));
+            userAccountServiceImpl.insertUser(username,Base64.encodeBase64String(encontent),nickname,email);
             return "註冊成功";
         }
         //-----------------------------------------------------------------------

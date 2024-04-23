@@ -31,9 +31,9 @@ public class UserAccountServiceImpl implements UserAccoutService{
         String decryptedPassword = new String(decontent);
         return password.equals(decryptedPassword);
     }
-    public boolean insertUser(String username, String password) {
+    public boolean insertUser(String username, String password,String nickname,String email) {
         // 調用 Mapper 接口中的 insertUser 方法向數據庫中插入新用戶
-        int rowsAffected = mapper.insertUser(username, password);
+        int rowsAffected = mapper.insertUser(username, password,nickname,email);
         // 返回插入操作是否成功
         return rowsAffected > 0;
     }

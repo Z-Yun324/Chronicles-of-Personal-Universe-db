@@ -20,5 +20,5 @@ public class CalenderList {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp reminder_time;
     private String remark;
-    
+
 }
