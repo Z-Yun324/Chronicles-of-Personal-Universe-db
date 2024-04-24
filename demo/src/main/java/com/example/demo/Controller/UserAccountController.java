@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Service.UserAccountServiceImpl;
+import com.example.demo.pojo.UserAccount;
 import com.example.demo.utils.EncrypAES;
 import com.example.demo.utils.JWTutils;
 import io.jsonwebtoken.Claims;
@@ -24,7 +25,7 @@ public class UserAccountController {
     public ResponseEntity<String> login(@RequestParam("username") String name, @RequestParam("password") String password) throws Exception {
         if (userAccountServiceImpl.isValidUser(name, password)) {
             String token = JWTutils.creatJWT(name, null);
-            System.out.println("生成token=:" + token);
+            //System.out.println("生成token=:" + token);
             return ResponseEntity.ok(token);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户名或密码错误");
@@ -46,30 +47,17 @@ public class UserAccountController {
         //-----------------------------------------------------------------------
         @PostMapping("/register")
         public String register(@RequestParam("username") String username, @RequestParam("password") String password,@RequestParam("nickname") String nickname,@RequestParam("email") String email)throws Exception {
+            // 檢查使用者名稱是否已經被註冊
+            UserAccount data = userAccountServiceImpl.findUserAccountByUsername(username);
+            if (data != null) {
+                return "已有此帳號";
+            }
             byte[] keyBytes = "0123456789abcdef".getBytes(); // 16字節的密鑰
             EncrypAES de1 = new EncrypAES(keyBytes);
             byte[] encontent = de1.Encrytor(password);
             userAccountServiceImpl.insertUser(username,Base64.encodeBase64String(encontent),nickname,email);
             return "註冊成功";
         }
-        //-----------------------------------------------------------------------
-/*
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(@ModelAttribute MemberAccountVO memberAccountVO) {
-
-        return "register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String doRegister(
-            @ModelAttribute MemberAccountVO memberAccountVO,
-            RedirectAttributes redirectAttributes) {
-
-        Optional<String> optional = memberAccountService.register(memberAccountVO);
-        String message = optional.orElse("註冊成功");
-        redirectAttributes.addFlashAttribute("MESSAGE", message);
-        return "redirect:login";
-    }*/
 
 }
 

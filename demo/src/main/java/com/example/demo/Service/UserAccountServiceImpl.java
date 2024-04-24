@@ -35,14 +35,17 @@ public class UserAccountServiceImpl implements UserAccoutService{
         // 調用 Mapper 接口中的 insertUser 方法向數據庫中插入新用戶
         int rowsAffected = mapper.insertUser(username, password,nickname,email);
         // 返回插入操作是否成功
-        return rowsAffected > 0;
-    }
+        return rowsAffected > 0;}
+
 
     @Override
     public UserAccount getUserByNameAndPassword(String username, String password) {
         return mapper.getUserByNameAndPassword(username, password);
     }
-
+    public UserAccount findUserAccountByUsername(String username) {
+        return mapper.findUserAccountByUsername(username);
+    }
+}
     //------------------------------------------------------------------
 
     /*
@@ -128,4 +131,4 @@ public class UserAccountServiceImpl implements UserAccoutService{
         // TODO Auto-generated method stub
         return userAccountDao.findUserAccountByUsername(username);
     }*/
-}
+
