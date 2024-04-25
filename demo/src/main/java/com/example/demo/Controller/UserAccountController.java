@@ -4,11 +4,14 @@ import com.example.demo.Service.UserAccountServiceImpl;
 import com.example.demo.pojo.UserAccount;
 import com.example.demo.utils.EncrypAES;
 import com.example.demo.utils.JWTutils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 public class UserAccountController {
@@ -22,19 +25,23 @@ public class UserAccountController {
 
     //-----------------------------------------------------------------------
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam("username") String name, @RequestParam("password") String password) throws Exception {
+    public ResponseEntity<String> login(@RequestParam("username") String name, @RequestParam("password") String password,@RequestParam("remeberme") boolean remeberme) throws Exception {
         if (userAccountServiceImpl.isValidUser(name, password)) {
-            String token = JWTutils.creatJWT(name, null);
-            //System.out.println("生成token=:" + token);
-            return ResponseEntity.ok(token);
+            //sub 改 Json 檔
+            ObjectMapper objectMapper = new ObjectMapper();
+            String subJson = objectMapper.writeValueAsString(Map.of("username", name, "password", password, "keepLogin", remeberme));
+            String token = JWTutils.creatJWT(subJson, null);
+            String encryptedToken = jwTutils.encrypt(token);
+            return ResponseEntity.ok("token:"+encryptedToken);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户名或密码错误");
         }
     }
-    @GetMapping("/secure-data")
+    @GetMapping("/secureData")
     public ResponseEntity<String> getSecureData(@RequestHeader("Authorization") String authorizationHeader) throws Exception{
         // 解析 JWT
-        String jwt = authorizationHeader.replace("Bearer ", "");
+        String decryptedToken = jwTutils.decrypt(authorizationHeader);
+        String jwt = decryptedToken.replace("Bearer ", "");
         Claims claims = JWTutils.parseJWT(jwt);
 
         // 从 JWT 中获取用户名

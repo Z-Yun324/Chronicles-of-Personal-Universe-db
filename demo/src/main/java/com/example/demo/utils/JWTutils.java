@@ -8,10 +8,13 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.context.annotation.Configuration;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
-
 @Configuration
 //生成jwt工具
 public class JWTutils {
@@ -59,7 +62,7 @@ public class JWTutils {
         JwtBuilder builder = Jwts.builder()
                 .setId(id)
                 .setSubject(subject) //主題可以是json數據
-                .setIssuer("yen") //簽名
+                .setIssuer("yun") //簽名
                 .setIssuedAt(now) //簽發時間
                 .signWith(secretKey,signatureAlgorithm)
                 //.signWith(signatureAlgorithm,secretKey) //(jwt 0.9.0)使用ES256演算法簽名，第二個參數為密鑰
@@ -92,13 +95,14 @@ public class JWTutils {
     }
 
 
+
     //生成令牌
     //public  static  SecretKey generalKey(){ //(jwt 0.9.0)
     public  static  Key generalKey(){
-        /*
-        byte[] encodeKey = Base64.getDecoder().decode(JWTutils.TOKEN_SECRET);
-        SecretKey key = new SecretKeySpec(encodeKey,0, encodeKey.length, "AES");
-        */
+
+        //byte[] encodeKey = Base64.getDecoder().decode(JWTutils.TOKEN_SECRET);
+       // SecretKey key = new SecretKeySpec(encodeKey,0, encodeKey.length, "AES");
+
         byte[] encodeKey = Decoders.BASE64.decode(JWTutils.TOKEN_SECRET);
         Key key= Keys.hmacShaKeyFor(encodeKey);
         return key;
@@ -129,6 +133,24 @@ public class JWTutils {
     private static String getUUID(){
         return UUID.randomUUID().toString();
     }
+    private static final String AES_KEY = "0123456789abcdef";
+
+    public String encrypt(String data) throws Exception {
+        SecretKey secretKey = new SecretKeySpec(AES_KEY.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] encryptedData = cipher.doFinal(data.getBytes());
+        return Base64.getEncoder().encodeToString(encryptedData);
+    }
+
+    public String decrypt(String encryptedData) throws Exception {
+        SecretKey secretKey = new SecretKeySpec(AES_KEY.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] decryptedData = cipher.doFinal(Base64.getDecoder().decode(encryptedData));
+        return new String(decryptedData);
+    }
+
     /**
      * 測試JWT生成與解析的工具
      *
