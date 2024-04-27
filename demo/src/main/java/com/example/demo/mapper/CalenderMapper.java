@@ -1,22 +1,19 @@
 package com.example.demo.mapper;
 
-import com.example.demo.pojo.CalenderList;
-import com.example.demo.pojo.UserAccount;
+import com.example.demo.pojo.Calender;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Mapper
 public interface CalenderMapper {
 
-    int insertCalender(CalenderList calenderList);
+    int insertCalender(Calender calender);
 
     void deleteCalenderById(int id);
 
-    List<CalenderList>getCalendersByUserId(int userid);
+    List<Calender>getCalendersByUserId(int userid);
 
-    int updateCalenderById(CalenderList calenderList);
+    int updateCalenderById(Calender calender);
 
 }
