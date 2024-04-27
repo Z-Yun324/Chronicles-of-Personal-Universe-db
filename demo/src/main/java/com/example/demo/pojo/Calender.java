@@ -5,9 +5,10 @@ import lombok.Data;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
-public class CalenderList {
+public class Calender {
     private int c_id;
     private String c_color;
     private Integer user_id;
@@ -20,5 +21,8 @@ public class CalenderList {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp reminder_time;
     private String remark;
+
+    // 添加 X 变量字段
+    private int xVariable;
 
 }
