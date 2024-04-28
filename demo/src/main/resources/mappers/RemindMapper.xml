@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.RemindMapper">
+
+    <!--新增提醒-->
+    <insert id="insertRemind" parameterType="com.example.demo.pojo.RemindList">
+        INSERT INTO remind_list (user_id, things_description, completion_date, reminder_time, priority)
+        VALUES (#{user_id}, #{things_description}, #{completion_date}, #{reminder_time}, #{priority})
+    </insert>
+
+    <!--查詢提醒-->
+    <select id="getRemindByUserId" parameterType="com.example.demo.pojo.RemindList">
+        SELECT * FROM remind_list WHERE user_id = #{user_id}
+    </select>
+
+    <!--刪除提醒-->
+    <delete id="deleteRemindById" parameterType="int">
+        DELETE FROM remind_list WHERE remind_id = #{remind_id}
+    </delete>
+
+    <!--修改提醒-->
+    <update id="updateRemindById" parameterType="com.example.demo.pojo.RemindList">
+        UPDATE remind_list
+        SET things_description = #{things_description},
+        completion_date = #{completion_date},
+        reminder_time = #{reminder_time},
+        priority = #{priority}
+        WHERE remind_id = #{remind_id}
+    </update>
+
+</mapper>
