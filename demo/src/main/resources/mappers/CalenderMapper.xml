@@ -5,7 +5,7 @@
 <mapper namespace="com.example.demo.mapper.CalenderMapper">
 
     <!--新增日曆項目-->
-    <insert id="insertCalender" parameterType="com.example.demo.pojo.CalenderList">
+    <insert id="insertCalender" parameterType="com.example.demo.pojo.Calender">
         INSERT INTO calender_list (c_color, user_id, event_date, start_time, end_time, things_description, reminder_time, remark)
         VALUES (#{c_color}, #{user_id}, #{event_date}, #{start_time}, #{end_time}, #{things_description}, #{reminder_time}, #{remark})
     </insert>
@@ -16,12 +16,12 @@
     </delete>
 
     <!--查詢日曆項目-->
-    <select id="getCalendersByUserId" parameterType="com.example.demo.pojo.CalenderList">
+    <select id="getCalendersByUserId" parameterType="com.example.demo.pojo.Calender">
         SELECT * FROM calender_list WHERE user_id = #{user_id}
     </select>
 
     <!--修改日曆項目-->
-    <update id="updateCalenderById" parameterType="com.example.demo.pojo.CalenderList">
+    <update id="updateCalenderById" parameterType="com.example.demo.pojo.Calender">
         UPDATE calender_list
         SET c_color = #{c_color},
         event_date = #{event_date},
@@ -32,9 +32,5 @@
         remark = #{remark}
         WHERE c_id = #{c_id}
     </update>
-
-
-
-
 
 </mapper>
