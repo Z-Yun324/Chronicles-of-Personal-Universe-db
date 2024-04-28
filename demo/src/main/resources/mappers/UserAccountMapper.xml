@@ -9,9 +9,9 @@
         SELECT * FROM user_account
     </select>
 
-    <!--根據用戶id獲取用戶訊息-->
-    <select id="getUserById" resultType="com.example.demo.pojo.UserAccount">
-        SELECT user_id FROM user_account WHERE user_id = #{id}
+    <!--根據用戶 username 獲取用戶訊息-->
+    <select id="findUserAccountByUsername" resultType="com.example.demo.pojo.UserAccount">
+        SELECT user_name FROM user_account WHERE user_name = #{username} LIMIT 1
     </select>
 
     <!--
@@ -30,7 +30,7 @@
     -->
     <insert id="insertUser" parameterType="com.example.demo.pojo.UserAccount">
         INSERT INTO user_account (user_name, user_password, user_nickname, email, salt)
-        VALUES (#{name}, #{password}, '', '', '')
+        VALUES (#{username}, #{password}, #{nickname}, #{email}, '')
     </insert>
 
 
