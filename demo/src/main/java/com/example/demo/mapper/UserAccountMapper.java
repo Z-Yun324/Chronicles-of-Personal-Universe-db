@@ -6,8 +6,8 @@ import com.example.demo.pojo.UserAccount;
 public interface UserAccountMapper {
 
     UserAccount getUserByNameAndPassword(String username, String password);
-    int insertUser(String username,String password);
-    UserAccount getUserById(String id);
+    int insertUser(String username,String password,String nickname,String email);
+    UserAccount findUserAccountByUsername(String username);
 }
 
 
