@@ -6,7 +6,7 @@ public interface UserAccoutService {
 
     // 業務邏輯
     //public UserAccount login(UserAccount userAccount);
-    public UserAccount getUserByNameAndPassword(String username, String password);
+    public UserAccount getUserByNameAndPassword(String userName, String password);
 
     // 資料庫操作
     //public UserAccount findUserAccountByUsername(String username);

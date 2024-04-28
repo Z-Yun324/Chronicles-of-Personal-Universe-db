@@ -25,16 +25,16 @@ public class UserAccountController {
 
     //-----------------------------------------------------------------------
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam("username") String name, @RequestParam("password") String password,@RequestParam("remeberme") boolean remeberme) throws Exception {
-        if (userAccountServiceImpl.isValidUser(name, password)) {
+    public ResponseEntity<String> login(@RequestParam("userName") String userName, @RequestParam("password") String password,@RequestParam("remeberMe") boolean remeberMe) throws Exception {
+        if (userAccountServiceImpl.isValidUser(userName, password)) {
             //sub 改 Json 檔
             ObjectMapper objectMapper = new ObjectMapper();
-            String subJson = objectMapper.writeValueAsString(Map.of("username", name, "password", password, "keepLogin", remeberme));
+            String subJson = objectMapper.writeValueAsString(Map.of("userName", userName, "password", password, "remeberMe", remeberMe));
             String token = JWTutils.creatJWT(subJson, null);
             String encryptedToken = jwTutils.encrypt(token);
             return ResponseEntity.ok("token:"+encryptedToken);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户名或密码错误");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用戶名或密碼錯誤，請重新輸入 ! ");
         }
     }
     @GetMapping("/secureData")
@@ -53,16 +53,16 @@ public class UserAccountController {
 
         //-----------------------------------------------------------------------
         @PostMapping("/register")
-        public String register(@RequestParam("username") String username, @RequestParam("password") String password,@RequestParam("nickname") String nickname,@RequestParam("email") String email)throws Exception {
+        public String register(@RequestParam("userName") String userName, @RequestParam("password") String password,@RequestParam("nickName") String nickName,@RequestParam("email") String email)throws Exception {
             // 檢查使用者名稱是否已經被註冊
-            UserAccount data = userAccountServiceImpl.findUserAccountByUsername(username);
+            UserAccount data = userAccountServiceImpl.findUserAccountByUserName(userName);
             if (data != null) {
                 return "已有此帳號";
             }
             byte[] keyBytes = "0123456789abcdef".getBytes(); // 16字節的密鑰
             EncrypAES de1 = new EncrypAES(keyBytes);
             byte[] encontent = de1.Encrytor(password);
-            userAccountServiceImpl.insertUser(username,Base64.encodeBase64String(encontent),nickname,email);
+            userAccountServiceImpl.insertUser(userName,Base64.encodeBase64String(encontent),nickName,email);
             return "註冊成功";
         }
 
