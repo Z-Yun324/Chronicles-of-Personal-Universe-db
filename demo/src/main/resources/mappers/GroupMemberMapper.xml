@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.GroupMemberMapper">
+
+    <!--新增群組成員-->
+    <insert id="insertGroup" parameterType="com.example.demo.pojo.GroupMembers">
+        INSERT INTO groupmembers (group_name, user_id, group_color) VALUES (#{group_name}, #{user_id}, #{group_color})
+    </insert>
+
+    <!--查詢群組成員-->
+    <select id="getGroupByUserId" parameterType="com.example.demo.pojo.GroupMembers">
+        SELECT * FROM groupmembers WHERE user_id = #{user_id}
+    </select>
+
+    <!--刪除群組成員-->
+    <delete id="deleteGroupById" parameterType="int">
+        DELETE FROM groupmembers WHERE group_id = #{group_id}
+    </delete>
+
+    <!--修改群組成員-->
+    <update id="updateGroupById" parameterType="com.example.demo.pojo.GroupMembers">
+        UPDATE groupmembers
+        SET group_name = #{group_name},
+        group_color = #{group_color}
+        WHERE group_id = #{group_id}
+    </update>
+
+</mapper>
