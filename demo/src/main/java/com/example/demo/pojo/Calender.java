@@ -22,7 +22,10 @@ public class Calender {
     private Timestamp reminder_time;
     private String remark;
 
+<<<<<<< HEAD:demo/src/main/java/com/example/demo/pojo/Calender.java
     // 添加 X 变量字段
     private int xVariable;
 
+=======
+>>>>>>> main:demo/src/main/java/com/example/demo/pojo/CalenderList.java
 }
