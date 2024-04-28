@@ -21,7 +21,7 @@ public class UserAccountServiceImpl implements UserAccoutService{
     }
 
     public boolean isValidUser(String account, String password)throws Exception{
-        String sql = "SELECT password FROM test WHERE account = :account LIMIT 1";
+        String sql = "SELECT user_password FROM user_account WHERE user_name = :account LIMIT 1";
         Map<String ,Object> paramMap = new HashMap<>();
         paramMap.put("account",account);
         String encryptedPassword = namedParameterJdbcTemplate.queryForObject(sql,paramMap,String.class);
@@ -31,18 +31,21 @@ public class UserAccountServiceImpl implements UserAccoutService{
         String decryptedPassword = new String(decontent);
         return password.equals(decryptedPassword);
     }
-    public boolean insertUser(String username, String password) {
+    public boolean insertUser(String username, String password,String nickname,String email) {
         // 調用 Mapper 接口中的 insertUser 方法向數據庫中插入新用戶
-        int rowsAffected = mapper.insertUser(username, password);
+        int rowsAffected = mapper.insertUser(username, password,nickname,email);
         // 返回插入操作是否成功
-        return rowsAffected > 0;
-    }
+        return rowsAffected > 0;}
+
 
     @Override
     public UserAccount getUserByNameAndPassword(String username, String password) {
         return mapper.getUserByNameAndPassword(username, password);
     }
-
+    public UserAccount findUserAccountByUsername(String username) {
+        return mapper.findUserAccountByUsername(username);
+    }
+}
     //------------------------------------------------------------------
 
     /*
@@ -128,4 +131,4 @@ public class UserAccountServiceImpl implements UserAccoutService{
         // TODO Auto-generated method stub
         return userAccountDao.findUserAccountByUsername(username);
     }*/
-}
+
